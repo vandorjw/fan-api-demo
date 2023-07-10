@@ -5,3 +5,4 @@ django-environ==0.10.0
 
 # infrastructure
 gunicorn[gevent]==20.1.0
+psycopg[binary]==3.1.9
