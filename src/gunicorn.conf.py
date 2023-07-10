@@ -1,3 +1,4 @@
+import os
 # Sample Gunicorn configuration file.
 
 #
@@ -18,8 +19,10 @@
 #       range.
 #
 
-bind = '0.0.0.0:8080'
-backlog = 2048
+_port = os.getenv('PORT', default='8080')
+
+bind = f'0.0.0.0:{_port}'
+backlog = 64
 
 #
 # Worker processes
@@ -71,64 +74,6 @@ worker_connections = 100
 timeout = 30
 keepalive = 2
 
-#
-#   spew - Install a trace function that spews every line of Python
-#       that is executed when running the server. This is the
-#       nuclear option.
-#
-#       True or False
-#
-
-spew = False
-
-#
-# Server mechanics
-#
-#   daemon - Detach the main Gunicorn process from the controlling
-#       terminal with a standard fork/fork sequence.
-#
-#       True or False
-#
-#   raw_env - Pass environment variables to the execution environment.
-#
-#   pidfile - The path to a pid file to write
-#
-#       A path string or None to not write a pid file.
-#
-#   user - Switch worker processes to run as this user.
-#
-#       A valid user id (as an integer) or the name of a user that
-#       can be retrieved with a call to pwd.getpwnam(value) or None
-#       to not change the worker process user.
-#
-#   group - Switch worker process to run as this group.
-#
-#       A valid group id (as an integer) or the name of a user that
-#       can be retrieved with a call to pwd.getgrnam(value) or None
-#       to change the worker processes group.
-#
-#   umask - A mask for file permissions written by Gunicorn. Note that
-#       this affects unix socket permissions.
-#
-#       A valid value for the os.umask(mode) call or a string
-#       compatible with int(value, 0) (0 means Python guesses
-#       the base, so values like "0", "0xFF", "0022" are valid
-#       for decimal, hex, and octal representations)
-#
-#   tmp_upload_dir - A directory to store temporary request data when
-#       requests are read. This will most likely be disappearing soon.
-#
-#       A path to a directory where the process owner can write. Or
-#       None to signal that Python should choose one on its own.
-#
-
-daemon = False
-
-pidfile = None
-umask = 0
-user = None
-group = None
-tmp_upload_dir = None
 
 #
 #   Logging
@@ -143,12 +88,4 @@ tmp_upload_dir = None
 #
 
 errorlog = '-'
-loglevel = 'info'
 accesslog = '-'
-access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
-
-#
-
-
-
-

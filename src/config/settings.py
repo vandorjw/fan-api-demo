@@ -11,14 +11,13 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Take environment variables from .env file
-environ.Env.read_env(path.join(BASE_DIR, '.env'))
+environ.Env.read_env(path.normpath(path.join(BASE_DIR.parent, '.env')))
 
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*', ])
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -122,8 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-# places collected files on the same directory level as 'src'
-STATIC_ROOT = path.normpath(path.join(BASE_DIR.parent, 'collectstatic'))
+STATIC_ROOT = path.join(BASE_DIR.parent, 'public_assets')
 
 STORAGES = {
     "staticfiles": {
