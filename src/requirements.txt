@@ -1,4 +1,7 @@
 django==4.2.3
 djangorestframework==3.14.0
 whitenoise[brotli]==6.5.0
+django-environ==0.10.0
+
+# infrastructure
 gunicorn[gevent]==20.1.0

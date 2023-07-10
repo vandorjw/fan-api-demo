@@ -115,7 +115,11 @@ STATIC_URL = 'static/'
 # places collected files on the same directory level as 'src'
 STATIC_ROOT = path.normpath(path.join(BASE_DIR.parent, 'collectstatic'))
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
