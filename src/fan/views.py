@@ -6,17 +6,17 @@ from .serializers import FanSerializer
 
 
 class FanViewSet(viewsets.ModelViewSet):
-    queryset = Fan.objects.all()
+    queryset = Fan.objects.all().order_by('id')
     serializer_class = FanSerializer
 
-    @action(detail=True, methods=['post', 'get'])
+    @action(detail=True, methods=['post'])
     def toggle_direction(self, request, pk=None):
         fan = self.get_object()
         fan.direction_next()
         serializer = self.get_serializer(fan)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post', 'get'])
+    @action(detail=True, methods=['post'])
     def cycle_speed(self, request, pk=None):
         fan = self.get_object()
         fan.speed_next()

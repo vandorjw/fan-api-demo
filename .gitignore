@@ -162,3 +162,5 @@ cython_debug/
 
 # ignore collected static files
 collectstatic/
+
+*.sqlite
